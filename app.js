@@ -1,6 +1,8 @@
 document.getElementById("searchButton").addEventListener("click", function() {
 
-    fetch("superheroes.php")
+    let searchTerm = document.getElementById("search").value;
+
+    fetch("superheroes.php?query=" + encodeURIComponent(searchTerm))
         .then(response => {
             if (!response.ok) {
                 throw new Error("PHP file could not be found!");
@@ -8,7 +10,7 @@ document.getElementById("searchButton").addEventListener("click", function() {
             return response.text();
         })
         .then(data => {
-            alert(data);
+            document.getElementById("result").innerHTML = data;
         })
         .catch(error => {
             alert("Error: " + error.message);
